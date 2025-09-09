@@ -10,9 +10,10 @@ from os import path
 app = Flask(__name__)
 
 
-basedir = path.dirname(path.abspath(__file__))
+basedir = path.dirname(path.dirname(path.abspath(__file__)))
+subdir = "database/db-test-1/"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{path.join(basedir, "instance/database.db")}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{path.join(basedir, subdir, "database.db")}"
 app.config['SECRET_KEY'] = "random string"
 
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=True)
