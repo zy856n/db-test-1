@@ -59,7 +59,7 @@ def new():
 
 @app.route("/debug")
 def debug():
-    x = path.abspath(__file__)
+    x = path.dirname(path.abspath(__file__))
     return x
 
 if __name__ == '__main__':
