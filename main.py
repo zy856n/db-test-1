@@ -3,11 +3,15 @@ from flask import Flask, request, flash, url_for, redirect, render_template
 from sqlalchemy import create_engine, Column, Integer, String, insert
 from sqlalchemy.orm import declarative_base, sessionmaker
 
+from os import path
+
 # Using sqlalchemy ORM
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
+basedir = path.abspath("instance/")
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{path.join(basedir, "database.db")}"
 app.config['SECRET_KEY'] = "random string"
 
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=True)
