@@ -11,6 +11,7 @@ app = Flask(__name__)
 
 basedir = path.abspath("instance/")
 
+# app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{path.join(basedir, "database.db")}"
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{path.join(basedir, "database.db")}"
 app.config['SECRET_KEY'] = "random string"
 
@@ -26,7 +27,10 @@ class Students(Base):
     addr = Column(String(200)) 
     pin = Column(String(10))
 
-Base.metadata.create_all(engine)
+try:
+    Base.metadata.create_all(engine)
+except:
+    print(app.config['SQLALCHEMY_DATABASE_URI'])
 
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -51,6 +55,10 @@ def new():
             return redirect(url_for("show_all"))
 
     return render_template("new.html")
+
+@app.route("/debug")
+def debug():
+    return app.config['SQLALCHEMY_DATABASE_URI']
 
 if __name__ == '__main__':
    app.run(debug = True)
