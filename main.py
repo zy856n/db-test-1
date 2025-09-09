@@ -9,7 +9,7 @@ from os import path
 
 app = Flask(__name__)
 
-
+# database file is not moved out of current project directory
 basedir = path.dirname(path.dirname(path.abspath(__file__)))
 subdir = "database/db-test-1/"
 
