@@ -59,7 +59,8 @@ def new():
 
 @app.route("/debug")
 def debug():
-    return app.config['SQLALCHEMY_DATABASE_URI']
+    x = path.abspath(__file__)
+    return x
 
 if __name__ == '__main__':
    app.run(debug = True)
